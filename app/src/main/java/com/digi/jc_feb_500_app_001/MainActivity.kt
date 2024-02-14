@@ -7,16 +7,25 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.digi.jc_feb_500_app_001.ui.theme.JC_FEB_500_App_001Theme
 
 class MainActivity : ComponentActivity() {
@@ -29,23 +38,54 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    WelcomeScreen()
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun WelcomeScreen() {
+    Scaffold(
+        topBar = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Green)
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Image(
+                    imageVector = Icons.Default.Star,
+                    contentDescription = null,
+                    modifier = Modifier.size(32.dp)
+                )
+                Text(
+                    text = "Jetpack App",
+                    fontSize = 24.sp
+                )
+            }
+        }
+    ) {
+        Column(
+            modifier = Modifier.padding(it)
+        ) {
+            LazyColumn(
+                contentPadding = PaddingValues(16.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                items(100) {
                     Column(
-                        modifier = Modifier
-                            .background(color = Color.Cyan),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.logo_dp),
-                            contentDescription = null
+                        Text(
+                            text = "Item $it",
+                            fontSize = 24.sp
                         )
                         Text(
-                            text = "Android",
-                            style = MaterialTheme.typography.displayLarge
-                        )
-                        Text(
-                            text = "version 14",
-                            style = MaterialTheme.typography.displaySmall
+                            text = "description of item $it",
+                            fontSize = 14.sp
                         )
                     }
                 }
@@ -54,11 +94,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun GreetingPreview() {
+fun WelcomeScreenPreview() {
     JC_FEB_500_App_001Theme {
-
+        WelcomeScreen()
     }
 }
+
+
